@@ -32,12 +32,11 @@ public class CorsConfig implements WebMvcConfigurer {
                 .maxAge(maxAge)
                 .allowCredentials(allowCredentials);
 
-        // Use allowedOriginPatterns if credentials are enabled to avoid wildcard
-        // conflicts
-        if (allowCredentials) {
-            corsConfig.allowedOriginPatterns(allowedOrigins.split(","));
-        } else {
-            corsConfig.allowedOrigins(allowedOrigins.split(","));
-        }
+        // Use allowedOriginPatterns for flexible matching (supports wildcards and regex
+        // patterns)
+        // This allows connections from different networks (Airtel WiFi, other networks,
+        // etc.)
+        var originPatterns = allowedOrigins.split(",");
+        corsConfig.allowedOriginPatterns(originPatterns);
     }
 }
