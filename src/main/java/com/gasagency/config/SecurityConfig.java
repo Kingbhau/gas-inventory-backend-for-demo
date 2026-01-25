@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/forgot-password")
                         .permitAll()
+                        .requestMatchers("/api/health", "/api/health/**").permitAll() // Allow health check without auth
                         .requestMatchers("OPTIONS", "/**").permitAll() // Allow OPTIONS for CORS preflight on mobile
                         .requestMatchers("/users/**").hasRole("MANAGER")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
