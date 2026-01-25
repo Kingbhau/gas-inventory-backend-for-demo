@@ -28,6 +28,7 @@ public class CorsConfig implements WebMvcConfigurer {
         var corsConfig = registry.addMapping("/api/**")
                 .allowedMethods(allowedMethods.split(","))
                 .allowedHeaders(allowedHeaders.split(","))
+                .exposedHeaders("Authorization", "Content-Type", "X-Custom-Header") // Expose headers for mobile
                 .maxAge(maxAge)
                 .allowCredentials(allowCredentials);
 
