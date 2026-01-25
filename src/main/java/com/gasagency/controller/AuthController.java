@@ -73,6 +73,7 @@ public class AuthController {
             accessCookie.setSecure(true); // Set to true in production (HTTPS)
             accessCookie.setPath("/");
             accessCookie.setMaxAge(15 * 60); // 15 min
+            accessCookie.setAttribute("SameSite", "None"); // Required for cross-domain requests
             response.addCookie(accessCookie);
 
             // Set refresh token as HTTP-only cookie
@@ -81,6 +82,7 @@ public class AuthController {
             refreshCookie.setSecure(true);
             refreshCookie.setPath("/");
             refreshCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+            refreshCookie.setAttribute("SameSite", "None"); // Required for cross-domain requests
             response.addCookie(refreshCookie);
 
             Map<String, Object> resp = new HashMap<>();
@@ -131,6 +133,7 @@ public class AuthController {
         accessCookie.setSecure(true);
         accessCookie.setPath("/");
         accessCookie.setMaxAge(15 * 60);
+        accessCookie.setAttribute("SameSite", "None"); // Required for cross-domain requests
         response.addCookie(accessCookie);
         return ResponseEntity.ok().body("Access token refreshed");
     }
@@ -144,6 +147,7 @@ public class AuthController {
         jwtCookie.setSecure(true);
         jwtCookie.setPath("/");
         jwtCookie.setMaxAge(0);
+        jwtCookie.setAttribute("SameSite", "None"); // Required for cross-domain requests
         response.addCookie(jwtCookie);
 
         Cookie refreshCookie = new Cookie("refresh_token", null);
@@ -151,6 +155,7 @@ public class AuthController {
         refreshCookie.setSecure(true);
         refreshCookie.setPath("/");
         refreshCookie.setMaxAge(0);
+        refreshCookie.setAttribute("SameSite", "None"); // Required for cross-domain requests
         response.addCookie(refreshCookie);
 
         // Remove refresh token from DB
