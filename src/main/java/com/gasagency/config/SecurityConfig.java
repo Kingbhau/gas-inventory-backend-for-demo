@@ -49,7 +49,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                        .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/forgot-password")
+                        .permitAll()
+                        .requestMatchers("OPTIONS", "/**").permitAll() // Allow OPTIONS for CORS preflight on mobile
                         .requestMatchers("/users/**").hasRole("MANAGER")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
                         .requestMatchers("/staff/**").hasAnyRole("MANAGER", "STAFF")
